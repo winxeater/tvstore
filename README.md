@@ -24,18 +24,18 @@ MySQL
 
 ## Objetivos
 
-* [Melhorar visual da interface](#)
-* [Montar rotas que retornarão dados necessários a aplicação](#)
-* [Dinamizar o conteúdo da listagem de acordo com o resultado das rotas](#)
-* [Implementar filtros e buscas baseado nos atributos pré-definidos](#)
+* [Melhorar visual da interface]
+* [Montar rotas que retornarão dados necessários a aplicação]
+* [Dinamizar o conteúdo da listagem de acordo com o resultado das rotas]
+* [Implementar filtros e buscas baseado nos atributos pré-definidos]
 
 ## Pontos considerados
 
-* [Avaliar capacidade de resolução dos objetivos acima](#)
-* [Organização e clareza do código](#)
-* [Caminho utilizado para resolução das necessidades](#)
-* [Preocupação com segurança](#)
-* [Usabilidade e aspecto final do layout](#)
+* [Avaliar capacidade de resolução dos objetivos acima]
+* [Organização e clareza do código]
+* [Caminho utilizado para resolução das necessidades]
+* [Preocupação com segurança]
+* [Usabilidade e aspecto final do layout]
 
 > **Dica**: Recomendamos que você inicie pelos pontos que possui mais facilidade de execução. Caso não consiga resolver alguma das tarefas, procure contornar a situação de modo que ela não afete a entrega das demais funcionalidades.
 
