@@ -42,6 +42,20 @@ MySQL
 
 > **Nota 2**: Sinta-se a vontade para adicionar bibliotecas/componentes que faça sentido na aplicação e que você já possua afinidade a fim de agilizar o desenvolvimento e/ou agregar valor ao resultado final. No entanto, evite substituir bibliotecas/componentes que já estão mo projeto
 
+## Instalação
+
+Clone este repositório localmente, edite o arquivo /back-end/config.js e insira os dados do banco de dados, que será fornecido pela CZ Brains®.
+
+Execute o comando abaixo nas pastas "font-end" e "back-end" para instalar os pacotes necessários:
+```
+npm install
+```
+
+Para iniciar tanto o servidor como aplicação, execute este comando nas pastas correspondentes:
+```
+npm start
+```
+
 ## Autores
 
 * **Marcelo Mazetto** - *Initial work* - [MarceloMazetto](https://github.com/marcelomazetto)
