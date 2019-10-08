@@ -2,7 +2,7 @@
 
 Este projeto simula uma página que lista produtos de uma loja virtual de venda de televisores e permite filtrar através de seleção de atributos e busca.
 
-> **Nota 1**: Essa aplicação foi desenvolvida pela agência de propaganda e tecnologia [CZ Brains®](https://www.czbrains.com.br/), o [Prodtool®](https://www.prodtool.com.br//)
+> **Nota 1**: Essa aplicação foi desenvolvida pela agência de propaganda e tecnologia [CZ Brains®](https://www.czbrains.com.br/)
 
 [![Custom badge](https://img.shields.io/badge/czbrains-website-red.svg)](https://www.czbrains.com.br/)
 [![Custom badge](https://img.shields.io/badge/versao-1.0-green.svg)](https://github.com/czbrainsbruno/readme)
