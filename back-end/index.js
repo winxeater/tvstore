@@ -12,7 +12,6 @@ app.use(express.static('../front-end/public'))
 // };
 
 
-
 app.listen(3000, function () {
   console.log('Listening on port 3000!');
 });
