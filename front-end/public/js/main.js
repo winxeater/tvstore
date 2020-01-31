@@ -3,9 +3,9 @@ $(document).ready(() => {
     let myRequestFilters = 'http://localhost:3000/filters';
 
     //Items//---------------------------------------------//------------------------------------------------
-    function updateItems(busca) {
+    function updateItems() {
         
-        let searchTerm = '';
+        let searchTerm = document.getElementById('inp-search').value.toLowerCase();
         let selectedFilters = {};
         // console.log(searchTerm);
         console.log('selected filters front : ',selectedFilters);
@@ -15,21 +15,22 @@ $(document).ready(() => {
             selectedFilters[this.name].push(this.value);
         });
 
-        searchTerm = busca;
-
         //pega determinada div by id e retorna na var divX
         var divItems = document.getElementById('div-items');
         divItems.innerHTML = '';
 
         var dirImg = '/assets/images/default-tv.png';
 
+        var postData = {
+            search: searchTerm, 
+            filters: selectedFilters, 
+        };
+
         $.ajax({
             url: myRequestItems,
             method: 'POST',
-            data: {
-                search: searchTerm, 
-                filters: selectedFilters, 
-            },
+            contentType: 'application/json',
+            data: JSON.stringify(postData),
         }).done(function(data) {
             //build items na div principal
             for (var i = 0; i < data.length; i++) {  
@@ -59,7 +60,8 @@ $(document).ready(() => {
 
     //filtros//---------------------------------------------//------------------------------------------------
     function updateFilters() {
-        let searchTerm = '';
+
+        let searchTerm = document.getElementById('inp-search').value.toLowerCase();
         let selectedFilters = {};
         // console.log(selectedFilters);
 
@@ -93,11 +95,11 @@ $(document).ready(() => {
             //brands
             for (var i = 0; i < data.brands.length; i++) {
                 // var l = data[0].childNodes[i]; 
-                let checked = (selectedFilters['brands'] ||  []).indexOf(data.brands[i]) >= 0;
+                let checked = (selectedFilters['brand'] ||  []).indexOf(data.brands[i]) >= 0;
                 
                 var filter = 
                 '<div class="custom-control custom-checkbox mb-1">' +
-                    '<input  class="custom-control-input chb-filter" value="'+data.brands[i]+'" id="chb-filter-'+data.brands[i]+'" type="checkbox" name="brands" '+(checked ? 'checked="checked"' :  '')+'/>' +
+                    '<input  class="custom-control-input chb-filter" value="'+data.brands[i]+'" id="chb-filter-'+data.brands[i]+'" type="checkbox" name="brand" '+(checked ? 'checked="checked"' :  '')+'/>' +
                     '<label class="custom-control-label" for="chb-filter-'+data.brands[i]+'">'+data.brands[i]+'</label>' +
                 '</div>'; 
 
@@ -168,8 +170,7 @@ $(document).ready(() => {
 
     //click search
     document.getElementById('btn-search').addEventListener("click", function(){
-        var busca = document.getElementById('inp-search').value.toLowerCase();
-        updateItems(busca);
+        updateItems();
         updateFilters();
     });
 

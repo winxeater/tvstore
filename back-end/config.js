@@ -3,4 +3,5 @@ module.exports = {
     host: 'mysql.projetos.czbrains.com.br',
     user: 'cz_tvstr',
     password: 'Rs_WHaP#nOEGX#vV',
+    connectTimeout: 5000,
 }

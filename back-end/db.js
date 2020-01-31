@@ -7,7 +7,10 @@ class DB {
     static getFilters(search, filters) {
         return new Promise((resolveFilters, rejectFilters) => {
             DB.pool.getConnection(function (err, connection) {
-                if (err) rejectFilters(err);
+                if (err) {
+                    rejectFilters(err);
+                    return;
+                }
 
                 let brands = new Promise((resolve, reject) => {
                     let sql = "SELECT DISTINCT brand FROM item";
@@ -72,43 +75,36 @@ class DB {
     static getItems(search, filters) {
         return new Promise((resolve, reject) => {
             DB.pool.getConnection(function (err, connection) {
-                if (err) reject(err);
+                if (err) {
+                    reject(err);
+                    return;
+                }
+
+                // Where
+                let sqlWhere = [];
+                let sqlValues = [];
+
+                //Search
+                var sString = search.split(" ");
+                console.log(sString);
+
+                // Filters
+                for(let field in filters) {
+                    let fValues = filters[field];
+                    sqlWhere.push(field + ' IN (' + fValues.map(v => '?').join(',') + ')');
+                    sqlValues = [...sqlValues, ...fValues];
+                }
+
+                // Sql
+                sqlWhere = (sqlWhere.length > 0 ? ' WHERE ' : '') + sqlWhere.join(' AND ');
+                let sqlQuery = "SELECT * FROM item " + sqlWhere + " ORDER BY title ";
+
+                console.log('QUERY', sqlQuery, sqlValues);
+
+                connection.query(sqlQuery,sqlValues, function (err, result) {
                 
-                console.log('search and filters DB: ',search, filters);
-
-                // {
-                // brand: ["LG"]
-                // }
-                // WHERE brand in (?)
-                // ['LG']
-
-
-                // {
-                //     brand: ["LG", 'SANSUNG']    
-                // }
-                // where brand in (?, ?)
-                // ['lg', 'samsung']
-
-
-                // {
-                //     brand: ["LG", 'SANSUNG']    
-                //     screen_type: ["OLED"]    
-                // }
-                // where brand in (?, ?) AND screen_type in (?)
-                // ['lg', 'samsung', 'OLED']
-                // for (var i = 0; i < search.length; i++) {
-                
-                // }
-
-                // let sql = "SELECT * FROM item WHERE brand IN ('Samsung','Sony')";
-                let sql = "SELECT * FROM item WHERE brand IN (?) OR screen_type IN (?) "+
-                "OR screen_size IN (?) OR resolution IN (?) OR voltage IN (?) AND (?)";
-
-                connection.query(sql,[ search, search, search, search, search, filters ], function (err, result) {
-                // connection.query(sql,['brand',('LG','Sony')], function (err, result) {
                     if (err) reject(err);
                     resolve(result);
-                    console.log('sql',sql)
                 });
             });
         });

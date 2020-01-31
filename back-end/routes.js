@@ -3,6 +3,7 @@ const routes = require('express').Router();
 const DB = require('./db');
 
 routes.post('/filters', function(req, res) {
+    console.log('req body filters: ',req.body.filters)
     DB.getFilters(req.body.search, req.body.filters).then((filters) =>  {
         res.status(200).json(filters)
     }).catch((err) => {
@@ -12,7 +13,7 @@ routes.post('/filters', function(req, res) {
 });
 
 routes.post('/items', function(req, res) {
-    console.log('req body filters: ',req.body.filters)
+    console.log('BODY', req.body);
     DB.getItems(req.body.search, req.body.filters).then((item) =>  {
         res.status(200).json(item)
     }).catch((err) => {
