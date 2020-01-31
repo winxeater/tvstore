@@ -23,9 +23,10 @@
       </div>
     </header>
     <main class="cz-main">
-      <section class="container">
+      <section class="container" id="container-filter">
         <div class="row py-5">
           <div class="col-2">
+          <form id="form_filters">
             <div class="row">
               <div class="col">
                 <h1 class="card-title mt-0">Marca</h1>
@@ -46,7 +47,7 @@
               <div class="col">
                 <h1 class="card-title">Tamanho</h1>
                 <div id="div-size">
-                  <!-- conteudo screen type -->
+                  <!-- conteudo screen size -->
                 </div>
               </div>
             </div>
@@ -61,24 +62,32 @@
             <div class="row">
               <div class="col">
                 <h1 class="card-title">Voltagem</h1>
-                <div id="div-volts">
-                  <!-- conteudo screen type -->
+                <div id="div-volt">
+                  <!-- conteudo screen voltage -->
                 </div>
               </div>
             </div>
+
+          </form>
           </div>
           <div class="col-10">
             <div class="row">
               <div class="col">
-                <div class="active-cyan-4 mb-4">
-                  <input id="inp-search" class="form-control" type="text" placeholder="Buscar" aria-label="Search"/>
-              
-                </div>
+                <form class="form-inline md-form mr-auto mb-4">
+                  <input id="inp-search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                  <button type="button" id="btn-search" class="btn btn-elegant btn-rounded btn-sm my-0 btn-primary">Search</button>
+                </form>
+                <!-- <div class="active-cyan-4 mb-4">
+                  <input  class="form-control" type="text" placeholder="Buscar" aria-label="Search"/>
+                  <button  class="btn btn-primary"> Search</button>
+                </div> -->
               </div>
             </div>
+            <form id="form_items">
             <div class="row" id="div-items">
-              
+              <!-- div items -->
             </div>
+            </form>
           </div>
         </div>
       </section>

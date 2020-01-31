@@ -1,206 +1,182 @@
 $(document).ready(() => {
-    //urls
-    // let myRequestData = 'http://localhost:3000/items';
-    // let myRequestBrands = 'http://localhost:3000/brands';
-    // let myRequestTypes = 'http://localhost:3000/screen_types';
-    // let myRequestSizes = 'http://localhost:3000/screen_sizes';
-    // let myRequestResolutions = 'http://localhost:3000/resolutions';
-    // let myRequestVolts = 'http://localhost:3000/voltages';
+    let myRequestItems = 'http://localhost:3000/items';
+    let myRequestFilters = 'http://localhost:3000/filters';
 
-    
-    // const data =  fetch(myRequestData).then(response=> response.json()).then((data)=> {
-    //         console.log(data)
-    //     })
+    //Items//---------------------------------------------//------------------------------------------------
+    function updateItems(busca) {
+        
+        let searchTerm = '';
+        let selectedFilters = {};
+        // console.log(searchTerm);
+        console.log('selected filters front : ',selectedFilters);
+        
+        $.each($('#form_filters').serializeArray(), function(){
+            selectedFilters[this.name] = selectedFilters[this.name] || [];
+            selectedFilters[this.name].push(this.value);
+        });
 
-    // const brands = fetch(myRequestBrands).then(response=> response.json())
+        searchTerm = busca;
 
-    // //requests from fetch[ITEMS]
-    // const types = fetch(myRequestTypes).then(response=> response.json())
+        //pega determinada div by id e retorna na var divX
+        var divItems = document.getElementById('div-items');
+        divItems.innerHTML = '';
 
-    // //requests from fetch[ITEMS]
-    // const sizes = fetch(myRequestSizes).then(response=> response.json())
+        var dirImg = '/assets/images/default-tv.png';
 
-    // //requests from fetch[ITEMS]
-    // const resolutions = fetch(myRequestResolutions).then(response=> response.json())
-
-    // //requests from fetch[ITEMS]
-    // const volts = fetch(myRequestVolts).then(response=> response.json())
-
-    const brands = [{"brand":"Samsung"},{"brand":"LG"},{"brand":"Sony"}];
-    const types = [{"screen_type":"LED"},{"screen_type":"OLED"}];
-    const sizes = [{"screen_size":"50\""},{"screen_size":"55\""},{"screen_size":"32\""},{"screen_size":"43\""},{"screen_size":"65\""},{"screen_size":"70\""}];
-    const resolutions = [{"resolution":"Ultra HD 4k"},{"resolution":"FullHD"}];
-    const volts = [{"voltage":"110v"},{"voltage":"220v"}];
-    const data = [{"id":1,"title":"TV LEDLEDg 50RU7100 UltraHD 4k","brand":"Samsung","screen_type":"LED","screen_size":"50\"","resolution":"UltraHD 4k","voltage":"110v"},{"id":2,"title":"TV LED Samsung 55RU7100 UltraHD 4k","brand":"Samsung","screen_type":"LED","screen_size":"55\"","resolution":"UltraHD 4k","voltage":"220v"},{"id":3,"title":"TV LED Samsung 32J4290 FullHD","brand":"Samsung","screen_type":"LED","screen_size":"32\"","resolution":"FullHD","voltage":"110v"},{"id":4,"title":"TV OLED Samsung OLED55C9 UltraHD 4k","brand":"Samsung","screen_type":"OLED","screen_size":"55\"","resolution":"UltraHD 4k","voltage":"220v"},{"id":5,"title":"TV LED LG 43LM6300 FullHD","brand":"LG","screen_type":"LED","screen_size":"43\"","resolution":"FullHD","voltage":"110v"},{"id":6,"title":"TV LED LG 32LM620 FullHD","brand":"LG","screen_type":"LED","screen_size":"32\"","resolution":"FullHD","voltage":"110v"},{"id":7,"title":"TV OLED LG OLED65B9 UltraHD 4k","brand":"LG","screen_type":"OLED","screen_size":"65\"","resolution":"UltraHD 4k","voltage":"220v"},{"id":8,"title":"TV OLED LG 70UM7370 UltraHD 4k","brand":"LG","screen_type":"OLED","screen_size":"70\"","resolution":"UltraHD 4k","voltage":"220v"},{"id":9,"title":"TV LED Sony KD-55X755F UltraHD 4k","brand":"Sony","screen_type":"LED","screen_size":"55\"","resolution":"UltraHD 4k","voltage":"110v"},{"id":10,"title":"TV OLED Sony XBR-65A8F UltraHD 4k","brand":"Sony","screen_type":"OLED","screen_size":"65\"","resolution":"UltraHD 4k","voltage":"220v"},{"id":11,"title":"TV OLED Sony XBR-55A8F UltraHD 4k","brand":"Sony","screen_type":"OLED","screen_size":"55\"","resolution":"UltraHD 4k","voltage":"110v"},{"id":12,"title":"TV LED Sony KDL-50W665F FullHD","brand":"Sony","screen_type":"LED","screen_size":"50\"","resolution":"FullHD","voltage":"11OLED"}]
-
-    
-    //items div principal loop pra search
-    var divItems = document.getElementById('div-items');
-    for (var i = 0; i < data.length; i++) {
-        var item = 
-        '<div class="col-4 mb-3" id="div-item">' +
-            '<div class="cz-product-item">' +
-                '<img class="cz-product-item__img mb-4" src="/assets/images/default-tv.png" alt=""/>' +
-            '<h2>'+ data[i].title +'</h2>' +
-            '<div class="cz-product-item__row"><span>Marca:</span><span> ' + data[i].brand +'</span></div>' +
-            '<div class="cz-product-item__row"><span>Tipo:</span><span> '+ data[i].screen_type +'</span></div>' +
-            '<div class="cz-product-item__row"><span>Tamanha:</span><span> '+ data[i].screen_size +'</span></div>' +
-            '<div class="cz-product-item__row"><span>Resolução:</span><span> '+ data[i].resolution +'</span></div>' +
-            '<div class="cz-product-item__row"><span>Voltagem:</span><span> '+ data[i].voltage +'</span></div>' +
-            '<h2 class="mt-3">Informações adicionais</h2>' +
-            '<div class="cz-product-item__row"><span>Modelo:</span><span>USZ990055XD</span></div>' +
-            '<div class="cz-product-item__row"><span>Saídas:</span><span>2 HDMI, 1 USB</span></div>' +
-            '<div class="cz-product-item__row mb-4"><span>HDTV:</span><span>Sim</span></div>' +
-            '<button class="btn btn-primary" type="button">Comprar</button>' +
-            '</div>' +
-        '</div>';
-        divItems.innerHTML += item;   
-    }
-    //keyup
-    document.getElementById('inp-search').addEventListener("keyup", function(){
-        var busca = document.getElementById('inp-search').value.toLowerCase();
-
-        for(var i = 0; i< divItems.childNodes.length; i++){
-            var achou = false;
-            var item = divItems.childNodes[i];
-            var itemFilhos = item.childNodes;
-
-            for(var j = 0; j< itemFilhos.length; j++){
-                var value = itemFilhos[j].childNodes[1].textContent.toLowerCase();
-                if(value.indexOf(busca) >= 0) {
-                    achou = true;
-                }
+        $.ajax({
+            url: myRequestItems,
+            method: 'POST',
+            data: {
+                search: searchTerm, 
+                filters: selectedFilters, 
+            },
+        }).done(function(data) {
+            //build items na div principal
+            for (var i = 0; i < data.length; i++) {  
+                var item = 
+                '<div class="col-4 mb-3" id="div-item">' +
+                    '<div class="cz-product-item">' +
+                        '<img class="cz-product-item__img mb-4" src="'+dirImg+'" alt="/assets/images/default-tv.png"/>' +
+                    '<h2>'+ data[i].title +'</h2>' +
+                    '<div class="cz-product-item__row"><span>Marca:</span><span> ' + data[i].brand +'</span></div>' +
+                    '<div class="cz-product-item__row"><span>Tipo:</span><span> '+ data[i].screen_type +'</span></div>' +
+                    '<div class="cz-product-item__row"><span>Tamanha:</span><span> '+ data[i].screen_size +'</span></div>' +
+                    '<div class="cz-product-item__row"><span>Resolução:</span><span> '+ data[i].resolution +'</span></div>' +
+                    '<div class="cz-product-item__row"><span>Voltagem:</span><span> '+ data[i].voltage +'</span></div>' +
+                    '<h2 class="mt-3">Informações adicionais</h2>' +
+                    '<div class="cz-product-item__row"><span>Modelo:</span><span>'+ data[i].value +'</span></div>' +
+                    '<div class="cz-product-item__row"><span>Saídas:</span><span>'+ data[i].key +'</span></div>' +
+                    '<div class="cz-product-item__row mb-4"><span>HDTV:</span><span>Sim</span></div>' +
+                    '<button class="btn btn-primary" type="button">Comprar</button>' +
+                    '</div>' +
+                '</div>';
+                divItems.innerHTML += item;  //concatena os itens da div 
             }
-
-            if (achou) {
-                $(item).show();
-            } else {
-                $(item).hide();
-            }
-        }
-    });
-    
-    const divMarca = document.getElementById('div-marca');
-    for (var i = 0; i < brands.length; i++) {
-        var item = 
-        
-        '<div class="custom-control custom-checkbox mb-1">' +
-            '<input  class="custom-control-input chb" value="'+brands[i].brand+'" id="'+brands[i].brand+'" type="checkbox"/>' +
-            '<label class="custom-control-label" for="'+brands[i].brand+'">'+brands[i].brand+'</label>' +
-        '</div>'; 
-
-        divMarca.innerHTML += item;
-        
-        // var applyId = document.getElementById('brand'+brands[i].brand);
-
-
+        });
+        // console.log(Object.keys(selectedFilters))
     }
+    updateItems();
 
-    const divType = document.getElementById('div-type');
-    for (var i = 0; i < types.length; i++) {
-        var type_item = 
-        
-        '<div class="custom-control custom-checkbox mb-1">' +
-            '<input class="custom-control-input chb" value="'+types[i].screen_type+'" id="'+types[i].screen_type+'" type="checkbox"/>' +
-            '<label class="custom-control-label" for="'+types[i].screen_type+'">'+types[i].screen_type+'</label>' +
-        '</div>'; 
+    //filtros//---------------------------------------------//------------------------------------------------
+    function updateFilters() {
+        let searchTerm = '';
+        let selectedFilters = {};
+        // console.log(selectedFilters);
 
-        divType.innerHTML += type_item;
-        
-        // var applyId = document.getElementById('brand'+brands[i].brand);
+        $.each($('#form_filters').serializeArray(), function(){
+            selectedFilters[this.name] = selectedFilters[this.name] || [];
+            selectedFilters[this.name].push(this.value);
+        });
 
+        //pega determinada div by id e retorna na var divX
+        const divMarcas = document.getElementById('div-marca');
+        const divTypes = document.getElementById('div-type');
+        const divSizes = document.getElementById('div-size');
+        const divResolutions = document.getElementById('div-reso');
+        const divVolt = document.getElementById('div-volt');
+        divMarcas.innerHTML = '';
+        divTypes.innerHTML = '';
+        divSizes.innerHTML = '';
+        divResolutions.innerHTML = '';
+        divVolt.innerHTML = '';
 
-    }
-
-    const divSize = document.getElementById('div-size');
-    for (var i = 0; i < sizes.length; i++) {
-        var size_item = 
-        
-        '<div class="custom-control custom-checkbox mb-1">' +
-            '<input class="custom-control-input chb" value="'+sizes[i].screen_size+'" id="'+sizes[i].screen_size+'" type="checkbox"/>' +
-            '<label class="custom-control-label" for="'+sizes[i].screen_size+'">'+sizes[i].screen_size+'</label>' +
-        '</div>'; 
-
-        divSize.innerHTML += size_item;
-        
-        // var applyId = document.getElementById('brand'+brands[i].brand);
-
-
-    }
-
-    const divResolution = document.getElementById('div-reso');
-    for (var i = 0; i < resolutions.length; i++) {
-        var resolution_item = 
-        
-        '<div class="custom-control custom-checkbox mb-1">' +
-            '<input class="custom-control-input chb" value="'+resolutions[i].resolution+'" id="'+resolutions[i].resolution+'" type="checkbox"/>' +
-            '<label class="custom-control-label" for="'+resolutions[i].resolution+'">'+resolutions[i].resolution+'</label>' +
-        '</div>'; 
-
-        divResolution.innerHTML += resolution_item;
-        
-        // var applyId = document.getElementById('brand'+brands[i].brand);
-
-
-    }
-
-    const divVolt = document.getElementById('div-volts');
-    for (var i = 0; i < volts.length; i++) {
-        var volt_item = 
-        
-        '<div class="custom-control custom-checkbox mb-1">' +
-            '<input class="custom-control-input chb" value="'+volts[i].voltage+'" id="'+volts[i].voltage+'" type="checkbox"/>' +
-            '<label class="custom-control-label" for="'+volts[i].voltage+'">'+volts[i].voltage+'</label>' +
-        '</div>'; 
-
-        divVolt.innerHTML += volt_item;
-        
-        // var applyId = document.getElementById('brand'+brands[i].brand);
-
-
-    }
-
-        
-    //filtro loop on click
-    $('.chb').click(function(){
-        var aChk = document.getElementsByClassName("chb"); 
-        var filtro = '';
-        for (var i=0;i<aChk.length;i++){ 
-            if (aChk[i].checked == true){ 
-                var filtro = filtro + ' ' + aChk[i].value;
+        $.ajax({
+            url: myRequestFilters,
+            method: 'POST',
+            data: {
+                search: searchTerm, 
+                filters: selectedFilters, 
+            },
+        }).done(function(data) {
+            // buildFilters();
+            
+            //brands
+            for (var i = 0; i < data.brands.length; i++) {
+                // var l = data[0].childNodes[i]; 
+                let checked = (selectedFilters['brands'] ||  []).indexOf(data.brands[i]) >= 0;
                 
-                // console.log(aChk[i].value + " marcado.");
-                // console.log('concatenados:',filtro)
-            }  else {
-                // CheckBox Não Marcado... Faça alguma outra coisa...
-                // console.log(aChk[i].value + " nao marcado.");
+                var filter = 
+                '<div class="custom-control custom-checkbox mb-1">' +
+                    '<input  class="custom-control-input chb-filter" value="'+data.brands[i]+'" id="chb-filter-'+data.brands[i]+'" type="checkbox" name="brands" '+(checked ? 'checked="checked"' :  '')+'/>' +
+                    '<label class="custom-control-label" for="chb-filter-'+data.brands[i]+'">'+data.brands[i]+'</label>' +
+                '</div>'; 
+
+                divMarcas.innerHTML += filter;
+            }  
+
+            //scren_type
+            for (var i = 0; i < data.screen_type.length; i++) {
+                // var l = data[0].childNodes[i]; 
+                let checked = (selectedFilters['screen_type'] ||  []).indexOf(data.screen_type[i]) >= 0;
+                
+                var filter = 
+                '<div class="custom-control custom-checkbox mb-1">' +
+                    '<input  class="custom-control-input chb-filter" value="'+data.screen_type[i]+'" id="chb-filter-'+data.screen_type[i]+'" type="checkbox" name="screen_type" '+(checked ? 'checked="checked"' :  '')+'/>' +
+                    '<label class="custom-control-label" for="chb-filter-'+data.screen_type[i]+'">'+data.screen_type[i]+'</label>' +
+                '</div>'; 
+
+                divTypes.innerHTML += filter;
             }
-    
-        }
 
-        for(var i = 0; i< divItems.childNodes.length; i++){
-            var achou = false;
-            var item = divItems.childNodes[i];
-            var itemFilhos = item.childNodes;
+            //scren_size
+            for (var i = 0; i < data.screen_size.length; i++) {
+                // var l = data[0].childNodes[i]; 
+                let checked = (selectedFilters['screen_size'] ||  []).indexOf(data.screen_size[i]) >= 0;
+                
+                var filter = 
+                '<div class="custom-control custom-checkbox mb-1">' +
+                    '<input  class="custom-control-input chb-filter" value="'+data.screen_size[i]+'" id="chb-filter-'+data.screen_size[i]+'" type="checkbox" name="screen_size" '+(checked ? 'checked="checked"' :  '')+'/>' +
+                    '<label class="custom-control-label" for="chb-filter-'+data.screen_size[i]+'">'+data.screen_size[i]+'</label>' +
+                '</div>'; 
 
-            for(var j = 0; j< itemFilhos.length; j++){
-                var value = itemFilhos[j].childNodes[1].textContent;
-                // console.log(itemFilhos[j].childNodes[1].textContent)
-                if(value.indexOf(filtro) >= 0) {
-                    achou = true;
-                }
+                divSizes.innerHTML += filter;
             }
 
-            if (achou) {
-                $(item).show();
-            } else {
-                $(item).hide();
-            }   
-        }
-    })
+            //resolution
+            for (var i = 0; i < data.resolution.length; i++) {
+                // var l = data[0].childNodes[i]; 
+                let checked = (selectedFilters['resolution'] ||  []).indexOf(data.resolution[i]) >= 0;
+                
+                var filter = 
+                '<div class="custom-control custom-checkbox mb-1">' +
+                    '<input  class="custom-control-input chb-filter" value="'+data.resolution[i]+'" id="chb-filter-'+data.resolution[i]+'" type="checkbox" name="resolution" '+(checked ? 'checked="checked"' :  '')+'/>' +
+                    '<label class="custom-control-label" for="chb-filter-'+data.resolution[i]+'">'+data.resolution[i]+'</label>' +
+                '</div>'; 
+
+                divResolutions.innerHTML += filter;
+            }
+
+            //voltage
+            for (var i = 0; i < data.voltage.length; i++) {
+                // var l = data[0].childNodes[i]; 
+                let checked = (selectedFilters['voltage'] ||  []).indexOf(data.voltage[i]) >= 0;
+                
+                var filter = 
+                '<div class="custom-control custom-checkbox mb-1">' +
+                    '<input  class="custom-control-input chb-filter" value="'+data.voltage[i]+'" id="chb-filter-'+data.voltage[i]+'" type="checkbox" name="voltage" '+(checked ? 'checked="checked"' :  '')+'/>' +
+                    '<label class="custom-control-label" for="chb-filter-'+data.voltage[i]+'">'+data.voltage[i]+'</label>' +
+                '</div>'; 
+
+                divVolt.innerHTML += filter;
+            }
+        });
+        // console.log(Object.keys(selectedFilters))
+    }
+    updateFilters();
 
     
 
+    //click search
+    document.getElementById('btn-search').addEventListener("click", function(){
+        var busca = document.getElementById('inp-search').value.toLowerCase();
+        updateItems(busca);
+        updateFilters();
+    });
 
+
+    $('#form_filters').on("change", 'input', function(){
+        updateItems();
+        updateFilters();
+    });
     
 });

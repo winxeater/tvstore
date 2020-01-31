@@ -2,9 +2,8 @@ const express = require('express');
 const routes = require('express').Router();
 const DB = require('./db');
 
-
-routes.get('/brands', function(req, res) {
-    DB.getBrand().then((filters) =>  {
+routes.post('/filters', function(req, res) {
+    DB.getFilters(req.body.search, req.body.filters).then((filters) =>  {
         res.status(200).json(filters)
     }).catch((err) => {
         console.log('Error getting filters: ', err);
@@ -12,44 +11,9 @@ routes.get('/brands', function(req, res) {
     })
 });
 
-routes.get('/screen_types', function(req, res) {
-    DB.getScreenType().then((filters) =>  {
-        res.status(200).json(filters)
-    }).catch((err) => {
-        console.log('Error getting filters: ', err);
-        res.status(500).json({ error: 'Internal server error' });
-    })
-});
-
-routes.get('/screen_sizes', function(req, res) {
-    DB.getScreenSize().then((filters) =>  {
-        res.status(200).json(filters)
-    }).catch((err) => {
-        console.log('Error getting filters: ', err);
-        res.status(500).json({ error: 'Internal server error' });
-    })
-});
-
-routes.get('/resolutions', function(req, res) {
-    DB.getResolution().then((filters) =>  {
-        res.status(200).json(filters)
-    }).catch((err) => {
-        console.log('Error getting filters: ', err);
-        res.status(500).json({ error: 'Internal server error' });
-    })
-});
-
-routes.get('/voltages', function(req, res) {
-    DB.getVoltage().then((filters) =>  {
-        res.status(200).json(filters)
-    }).catch((err) => {
-        console.log('Error getting filters: ', err);
-        res.status(500).json({ error: 'Internal server error' });
-    })
-});
-
-routes.get('/items', function(req, res) {
-    DB.listAll().then((item) =>  {
+routes.post('/items', function(req, res) {
+    console.log('req body filters: ',req.body.filters)
+    DB.getItems(req.body.search, req.body.filters).then((item) =>  {
         res.status(200).json(item)
     }).catch((err) => {
         console.log('Error getting list: ', err);
